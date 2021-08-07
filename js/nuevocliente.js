@@ -20,6 +20,25 @@
         }
     }
 
+    function crearNuevoCliente(cliente){
+        const transaction = DB.transaction(['crm'], 'readwrite');
+        const objectStore = transaction.objectStore('crm');
+
+        objectStore.add(cliente);
+
+        transaction.onerror = () => imprimirAlerta('El email ya se encuentra registrado');
+
+        transaction.oncomplete = () => {
+            console.log('Cliente agregado');
+
+            imprimirAlerta('El cliente se agregó correctamente');
+
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 3000);
+        }
+    }
+
     function validarCliente(e){
         e.preventDefault();
 
@@ -34,6 +53,17 @@
 
             return;
         }
+
+        // Crear objeto con la información
+
+        const cliente = {
+            nombre,
+            email,
+            telefono, 
+            empresa, 
+            id: Date.now()}
+
+        crearNuevoCliente(cliente);
     }
 
     function imprimirAlerta(mensaje, tipo){
