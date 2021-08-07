@@ -54,7 +54,6 @@
                 
 
                 if (cursor){
-                    console.log(cursor.value);
                     const {id, nombre, email, telefono, empresa} = cursor.value;
 
                     const listadoClientes = document.querySelector('#listado-clientes');
