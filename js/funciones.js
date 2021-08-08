@@ -59,3 +59,44 @@ function imprimirAlerta(mensaje, tipo){
         }, 3000);
     }
 }
+
+function obtenerCliente(id){
+    const transaction = DB.transaction(['crm'], 'readonly');
+    const objectStore = transaction.objectStore('crm');
+
+    const cliente = objectStore.openCursor();
+    cliente.onsuccess = (e) => {
+        const cursor = e.target.result;
+
+        if (cursor) {
+            if (cursor.value.id === Number(id)){
+                llenarFormulario(cursor.value);
+            }
+            cursor.continue();
+        }
+    }
+}
+
+function eliminarRegistro(e){
+    if (e.target.classList.contains('eliminar')){
+        const idEliminar = Number(e.target.dataset.cliente);
+        const confirmar = confirm('Deseas eliminar este cliente?');
+
+        if (confirmar){
+            const transaction = DB.transaction(['crm'], 'readwrite');
+            const objectStore = transaction.objectStore('crm');
+
+            objectStore.delete(idEliminar);
+
+            transaction.oncomplete = () => {
+                console.log('Cliente eliminado correctamente');
+
+                e.target.parentElement.parentElement.remove();
+            }
+
+            transaction.onerror = () => {
+                console.log('Hubo un error', 'error');
+            }
+        }
+    }
+}
