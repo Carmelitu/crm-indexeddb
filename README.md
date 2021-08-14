@@ -6,7 +6,7 @@ Check it out here: https://crm-indexeddb-carmelitu.netlify.app/
 
 Project made for a JavaScript course on Udemy. HTML and CSS are delivered already finalized by the teacher.
 
-This page is in charge of keeping track of appointments for a veterinary clinic. You can add, modify and delete appointments as you wish. The form also has validations to correctly load all the fields. It uses classes and modules.
+This site is a CRM where you can upload your clients. You can add, modify and delete clients as you like. It uses IndexedDB to store the entered data. It also validates the fields when adding or editing clients and asks for confirmation when deleting.
 
 ## Home Screen
 
